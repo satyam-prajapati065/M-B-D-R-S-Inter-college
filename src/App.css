@@ -105,7 +105,7 @@ button {
 
 /* --- Login Screen --- */
 .login-container {
-  margin-top:2.2rem;
+  margin-top: 2.2rem;
   height: 70vh;
   display: flex;
   align-items: center;
@@ -630,4 +630,112 @@ td:first-child {
   text-align: center;
   max-width: 400px;
   width: 90%;
+}
+
+
+
+/* --- Navbar Responsive Styles --- */
+
+/* Mobile Icon Hide by default (Desktop pe nahi dikhega) */
+.mobile-menu-icon {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  /* 3-dot Button Style */
+  .mobile-menu-icon {
+    display: block;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #001f4d;
+    cursor: pointer;
+  }
+
+  /* Desktop Links ko Mobile Menu banana */
+  .nav-links {
+    display: none;
+    /* Default hide on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    z-index: 100;
+  }
+
+  /* Jab 3-dot click ho tab ye class add hogi (via JS) */
+  .nav-links.nav-active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* --- General Responsive Fixes --- */
+
+  .login-card {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  /* Table ko mobile pe scrollable banana */
+  .fees-table-container,
+  .records-table-container,
+  div[style*="overflowX: auto"] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+  }
+
+  table {
+    min-width: 600px;
+    /* Force scroll instead of squishing */
+  }
+
+  /* Form Grid ko single column banana */
+  form[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .stats-dashboard,
+  div[style*="display: flex; gap: 10px"] {
+    flex-direction: row;
+    /* Keeping stats boxes row but smaller font */
+    font-size: 0.8rem;
+  }
+}
+
+/* Modal Responsive */
+@media (max-width: 480px) {
+  .custom-box {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .receipt-box {
+    width: 98%;
+    padding: 10px;
+  }
 }
