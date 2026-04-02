@@ -1,0 +1,633 @@
+/* --- Global Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.container {
+  /* max-width: 1200px; */
+  width: 100%;
+  /* margin: 20px auto; */
+  /* padding: 20px; */
+}
+
+/* --- Navbar Styling --- */
+.navbar {
+  background-color: #ffffff;
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #001f4d;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  background: #e0f2f1;
+  color: #001f4d;
+}
+
+.nav-links a.active {
+  background: #001f4d;
+  color: white;
+}
+
+/* --- Card & Hero Section --- */
+.card {
+  background: white;
+  padding: 25px;
+  /* border-radius: 12px; */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  color: #001f4d;
+  margin-bottom: 10px;
+}
+
+/* --- Buttons --- */
+button {
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+.active-btn {
+  background-color: #001f4d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.plain-btn {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.plain-btn:hover {
+  background-color: #d5d5d5;
+}
+
+/* --- Login Screen --- */
+.login-container {
+  margin-top:2.2rem;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #001f4d;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  background-color: #001f4d;
+}
+
+
+/* --- Attendance Register Table --- */
+.register-row:hover {
+  background-color: #f9f9f9;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+/* Sticky styles for the register */
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+/* --- Custom Modal --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* --- Receipt Styling --- */
+.receipt-box {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-receipt,
+  #printable-receipt * {
+    visibility: visible;
+  }
+
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* border: none !important; */
+    border: 1px solid;
+
+  }
+}
+
+/* TopBar */
+.top-bar {
+  background-color: #001f4d;
+  /* Deep Blue */
+  color: white;
+  font-size: 13px;
+  height: 45px;
+  overflow: hidden;
+}
+
+.top-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+/* Left Yellow Section with Skew */
+.top-left-yellow {
+  background-color: #ffb320;
+  /* Yellow */
+  display: flex;
+  align-items: center;
+  padding: 0 40px 0 60px;
+  height: 100%;
+  position: relative;
+}
+
+.skew-divider {
+  position: absolute;
+  right: -20px;
+  top: 0;
+  width: 40px;
+  height: 100%;
+  background-color: #ffb320;
+  transform: skewX(-20deg);
+  border-right: 4px solid white;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+}
+
+.social-icons a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Translate Button */
+.translate-btn {
+  background-color: #ff8c00;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Right Side Info */
+.top-right-info {
+  display: flex;
+  gap: 25px;
+  padding-right: 40px;
+}
+
+.top-right-info span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-right-info i {
+  color: #ffb320;
+  /* Yellow Icons */
+}
+
+
+/* 1. Pure Widget Box ko Orange Button banana */
+.goog-te-gadget-simple {
+  background-color: #ff8c00 !important;
+  /* Orange */
+  border: none !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 35px !important;
+  position: relative !important;
+  text-decoration: none !important;
+}
+
+/* 2. "Select Language" ko 100% khatam karna (No Overlap) */
+.goog-te-menu-value span {
+  font-size: 0 !important;
+  /* Akshar zero ho gaye */
+  line-height: 0 !important;
+  /* Height zero ho gayi */
+  color: transparent !important;
+  /* Invisible ho gaya */
+  margin: 0 !important;
+  padding: 0 !important;
+  display: none !important;
+  /* Poori tarah gayab */
+}
+
+/* 3. Hamara Naya "Translate" Text (Sirf yahi dikhega) */
+.goog-te-gadget-simple::before {
+  content: "Translate";
+  /* Sirf "Translate" likha aayega */
+  font-size: 14px !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-family: 'Segoe UI', sans-serif !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* 4. Saare Icons, Arrows, Google Logo aur Borders hatana */
+.goog-te-gadget-icon,
+.goog-te-menu-value img,
+.goog-te-menu-value b,
+.goog-te-gadget-simple img,
+.goog-te-gadget span {
+  display: none !important;
+}
+
+/* 5. Google Banner (Top Bar) hatana */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+/* 6. Hover effect */
+.goog-te-gadget-simple:hover {
+  background-color: #e67e22 !important;
+}
+
+
+/* Responsive adjust */
+@media (max-width: 900px) {
+  .top-left-yellow {
+    display: none;
+  }
+
+  .top-right-info {
+    font-size: 10px;
+    gap: 10px;
+  }
+}
+
+
+/* --- Footer Styling --- */
+.main-footer {
+  background-color: #001f4d;
+  /* Deep Blue matching Top Bar */
+  color: white;
+  padding: 50px 0 20px 0;
+  margin-top: 50px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.footer-col h3.footer-logo {
+  color: #ffb320;
+  /* Yellow */
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.footer-col h3 span {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.footer-col h4 {
+  color: #ffb320;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #ffb320;
+}
+
+.footer-col p {
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-col ul li a:hover {
+  color: #ffb320;
+  padding-left: 5px;
+}
+
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.footer-socials a {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.footer-socials a:hover {
+  background: #ffb320;
+  color: #001f4d;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-col h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+}
+
+/* --- Events Section (Screenshot Basis) --- */
+.events-section {
+  background-color: #001f4d;
+  padding: 50px 20px;
+  position: relative;
+  color: white;
+  margin-bottom: 6rem;
+}
+
+.events-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.events-left {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.yellow-circle-bg {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border: 40px solid #ffb320;
+  border-radius: 50%;
+  left: -80px;
+  bottom: -120px;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.calendar-img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.events-right {
+  flex: 1;
+  z-index: 2;
+}
+
+.events-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #ffb320;
+  border-left: 5px solid #ffb320;
+  padding-left: 15px;
+}
+
+.event-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.event-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #ffb320;
+}
+
+.event-icon {
+  color: #ffb320;
+  font-size: 1.5rem;
+}
+
+.event-details h4 {
+  font-size: 1.1rem;
+  margin-bottom: 3px;
+}
+
+.event-details p {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .events-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .yellow-circle-bg {
+    display: none;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  /* Halka black piche */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  /* Sabse upar */
+}
+
+.custom-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
