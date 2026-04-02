@@ -1,9 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const TiltCard = ({ calendarImg, tiltMax = 20 }) => {
   const cardRef = useRef(null);
 
+  // Mobile check karne ke liye state
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Window resize handle karne ke liye
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleMouseMove = (e) => {
+    if (isMobile) return; // Mobile par tilt effect band rakhenge taaki scroll mein dikat na ho
     const card = cardRef.current;
     const rect = card.getBoundingClientRect();
 
@@ -26,11 +37,19 @@ const TiltCard = ({ calendarImg, tiltMax = 20 }) => {
     card.style.transition = "transform 0.5s ease";
   };
 
+  // --- Dynamic Styles ---
+  const dynamicCardStyle = {
+    ...styles.tiltCard,
+    // Agar mobile hai toh size chota kar do (e.g. 300x280), nahi toh wahi 420x400 rahega
+    width: isMobile ? "300px" : "420px",
+    height: isMobile ? "280px" : "400px",
+  };
+
   return (
     <div style={styles.container}>
       <div
         ref={cardRef}
-        style={styles.tiltCard}
+        style={dynamicCardStyle}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
@@ -49,17 +68,17 @@ const styles = {
   container: {
     perspective: "1000px",
     display: "inline-block",
-    margin: "20px",
+    margin: "10px auto", // Mobile ke liye margin thoda kam
+    textAlign: "center",
   },
   tiltCard: {
-    width: "420px",
-    height: "400px",
     background: "#fff",
     position: "relative",
     transformStyle: "preserve-3d",
     boxShadow: "0 20px 30px rgba(0, 0, 0, 0.1)",
     overflow: "hidden",
     cursor: "pointer",
+    borderRadius: "12px", // Thoda round kar diya mobile pe achha lagta hai
   },
   cardImage: {
     position: "absolute",

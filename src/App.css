@@ -772,4 +772,64 @@ td:first-child {
     /* Mobile keyboard zoom issue nahi hoga */
     padding: 12px !important;
   }
+
+  /* 1. Main Container aur Cards ko 100% width dena */
+  .container,
+  .card,
+  .login-card,
+  .admission-portal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 10px 0 !important;
+    /* Side margin hata di */
+    padding: 15px !important;
+    /* Padding thodi kam kar di mobile ke liye */
+    border-radius: 0 !important;
+    /* Mobile pe sharp edges zyada saaf lagte hain */
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Admission Form ke saare DIVs ko 100% karna */
+  form {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  form div {
+    width: 100% !important;
+    grid-column: span 1 !important;
+    /* Grid layout ko override karne ke liye */
+  }
+
+  /* 3. Inputs aur Buttons ko full width karna */
+  .input-field,
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea,
+  button {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    /* Padding se width na badhe isliye */
+    margin-bottom: 10px;
+  }
+
+  /* 4. Horizontal Scroll Fix (Taaki page shake na kare) */
+  body,
+  html {
+    overflow-x: hidden !important;
+    width: 100%;
+    position: relative;
+  }
+
+  /* 5. Buttons jo Grid Span use kar rahe hain */
+  .login-btn,
+  .logout-btn,
+  button[style*="gridColumn"] {
+    grid-column: span 1 !important;
+    width: 100% !important;
+  }
 }
