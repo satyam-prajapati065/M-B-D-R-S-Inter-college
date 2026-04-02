@@ -739,3 +739,37 @@ td:first-child {
     padding: 10px;
   }
 }
+
+/* --- Mobile Responsive Form Fix --- */
+@media (max-width: 768px) {
+
+  /* Admission form ka grid structure khatam karke single column banana */
+  form[style*="display: grid"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  /* Agar grid use ho raha hai toh columns ko 1 kar do */
+  .admission-form,
+  form {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Jo elements do column gher rahe the (Address, Buttons), unhe full width rakho */
+  div[style*="gridColumn: span 2"],
+  button[style*="gridColumn: span 2"] {
+    grid-column: span 1 !important;
+    width: 100% !important;
+  }
+
+  /* Input fields aur labels ko thoda bada aur saaf dikhao mobile par */
+  .input-field,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+    /* Mobile keyboard zoom issue nahi hoga */
+    padding: 12px !important;
+  }
+}
