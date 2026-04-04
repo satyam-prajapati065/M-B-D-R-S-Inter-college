@@ -9,6 +9,7 @@ import TopBar from "./components/TopBar";
 import Footer from "./components/Footer";
 import Events from "./components/Events";
 import ConfirmModal from "./components/ConfirmModal";
+import ImageSlider from "./components/ImageSlider";
 import "./App.css";
 
 function App() {
@@ -87,7 +88,9 @@ function App() {
           userRole={userRole}
           setIsLoggedIn={handleLogout}
         />
-
+        <Routes>
+          <Route path="/" element={<ImageSlider />} />
+        </Routes>
         <ConfirmModal
           isOpen={modal.isOpen}
           type={modal.type}

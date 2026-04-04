@@ -788,6 +788,85 @@ td:first-child {
     /* Mobile pe sharp edges zyada saaf lagte hain */
     box-sizing: border-box !important;
   }
+}
 
+/* --- Full Width Image Slider --- */
+.slider-container {
+  margin-top: 20px;
+  width: 100%;
+  height: 500px;
+  /* Desktop Height */
+  overflow: hidden;
+}
 
+.mySwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.single-slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  /* Image pe halka black parda */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.slide-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+.slide-content p {
+  font-size: 1.2rem;
+  background: #ffb320;
+  /* Yellow strip background */
+  color: #001f4d;
+  display: inline-block;
+  padding: 5px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+/* Custom Navigation Buttons */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffb320 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ffb320 !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .slider-container {
+    height: 300px;
+    /* Mobile pe height kam */
+  }
+
+  .slide-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .slide-content p {
+    font-size: 0.9rem;
+  }
 }
