@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+  --eduhive-font: "Plus Jakarta Sans", sans-serif;
+}
+
 /* --- Global Styles --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: var(--eduhive-font);
 }
 
 body {
@@ -333,7 +339,7 @@ td:first-child {
   font-size: 14px !important;
   color: white !important;
   font-weight: bold !important;
-  font-family: 'Segoe UI', sans-serif !important;
+  font-family: var(--eduhive-font);
   visibility: visible !important;
   display: block !important;
 }
@@ -451,7 +457,8 @@ td:first-child {
   margin-top: 20px;
 }
 
-.footer-socials a {
+.footer-socials a,
+.developed-holder {
   color: white;
   background: rgba(255, 255, 255, 0.1);
   width: 35px;
@@ -475,6 +482,8 @@ td:first-child {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   color: #888;
+  display: flex;
+  justify-content: space-around;
 }
 
 @media (max-width: 768px) {

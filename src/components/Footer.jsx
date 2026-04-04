@@ -78,6 +78,23 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} MBDRS Inter College. All Rights
           Reserved.
         </p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
+        >
+          <b>Developed By Satyam Prajapati</b>
+          <a
+            href="https://www.linkedin.com/in/satyam-prajapati-94a25831a"
+            className="developed-holder"
+            target="_blank"
+          >
+            <i className="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
       </div>
     </footer>
   );
