@@ -2,6 +2,9 @@ import React from "react";
 import { Link, useLocation } from "react-router";
 
 const Footer = () => {
+  const mapLOcation =
+    "https://www.google.com/maps/place/Maa+Bramha+Devi+Ramashankar+inter+collage,+Akbarpur/@26.4277162,82.5256524,19z/data=!4m14!1m7!3m6!1s0x3990928f021d7a3d:0xab73385dd026f138!2sM.B.D.R.S.Sainik+school!8m2!3d26.4275289!4d82.5263605!16s%2Fg%2F11c617jl6h!3m5!1s0x399093b4a261f2df:0xaf43da8a8bd539a5!8m2!3d26.4275835!4d82.526272!16s%2Fg%2F11sqhx4583?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D";
+
   const location = useLocation();
 
   // Wo pages jahan footer NAHI dikhana hai
@@ -61,14 +64,20 @@ const Footer = () => {
         <div className="footer-col">
           <h4>Contact Us</h4>
           <p>
-            <i className="fa-solid fa-location-dot"></i> Akbarpur, Ambedkar
-            Nagar, UP
+            <a href={mapLOcation} target="_blank" className="contact-link">
+              <i className="fa-solid fa-location-dot"></i>
+              &nbsp; Akbarpur, Ambedkar Nagar, UP
+            </a>
           </p>
           <p>
-            <i className="fa-solid fa-phone"></i> +917947420676
+            <a href="tel:+917947420676" className="contact-link">
+              <i className="fa-solid fa-phone"></i> +91 7947420676
+            </a>
           </p>
           <p>
-            <i className="fa-solid fa-envelope"></i> info@mbdrs.edu.in
+            <a href="mailto:info@mbdrs.edu.in" className="contact-link">
+              <i className="fa-solid fa-envelope"></i> info@mbdrs.edu.in
+            </a>
           </p>
         </div>
       </div>

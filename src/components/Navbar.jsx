@@ -91,7 +91,7 @@ const Navbar = ({ isLoggedIn, userRole, setIsLoggedIn }) => {
               <button
                 onClick={handleLogout}
                 className="logout-btn"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", backgroundColor:"#fff", color:"red" }}
               >
                 <i className="fa-solid fa-right-from-bracket"></i> Logout
               </button>

@@ -296,6 +296,11 @@ td:first-child {
   gap: 8px;
 }
 
+.contact-link-top {
+  text-decoration: none;
+  color: #fff;
+}
+
 .top-right-info i {
   color: #ffb320;
   /* Yellow Icons */
@@ -426,8 +431,12 @@ td:first-child {
 
 .footer-col p {
   line-height: 1.6;
-  color: #ccc;
   margin-bottom: 10px;
+}
+
+.contact-link {
+  text-decoration: none;
+  color: #ccc;
 }
 
 .footer-col ul {
@@ -510,6 +519,7 @@ td:first-child {
   position: relative;
   color: white;
   margin-bottom: 6rem;
+  margin-top: 2rem;
 }
 
 .events-container {
@@ -803,7 +813,7 @@ td:first-child {
 .slider-container {
   margin-top: 20px;
   width: 100%;
-  height: 500px;
+  height: 750px;
   /* Desktop Height */
   overflow: hidden;
 }
@@ -845,7 +855,6 @@ td:first-child {
 
 .slide-content p {
   font-size: 1.2rem;
-  background: #ffb320;
   /* Yellow strip background */
   color: #001f4d;
   display: inline-block;
@@ -877,5 +886,148 @@ td:first-child {
 
   .slide-content p {
     font-size: 0.9rem;
+  }
+}
+
+
+
+/* --- Modern Message Section --- */
+.modern-msg-section {
+  padding: 80px 10%;
+  background: #ffffff;
+}
+
+.msg-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.msg-header h2 {
+  font-size: 2.5rem;
+  color: #001f4d;
+  margin-bottom: 5px;
+}
+
+.msg-underline {
+  width: 80px;
+  height: 4px;
+  background: #ffb320;
+  margin: 10px auto;
+  border-radius: 10px;
+}
+
+.msg-container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.msg-row {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  transition: 0.5s;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Image Styling with Backdrop Effect */
+.msg-img-box {
+  position: relative;
+  flex: 1;
+}
+
+.msg-img-box img {
+  width: 100%;
+  max-width: 380px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.img-backdrop {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  width: 100%;
+  max-width: 380px;
+  height: 450px;
+  border-radius: 20px;
+  z-index: 1;
+  opacity: 0.15;
+}
+
+/* Text Styling */
+.msg-text-box {
+  flex: 1.2;
+}
+
+.msg-role {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.msg-name {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.msg-para {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 30px;
+}
+
+.msg-btn {
+  background: transparent;
+  color: #333;
+  padding: 8px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.msg-btn:hover {
+  letter-spacing: 1px;
+  color: #000;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 900px) {
+  .modern-msg-section {
+    padding: 50px 20px;
+  }
+
+  .msg-row,
+  .row-reverse {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .msg-img-box img {
+    height: 350px;
+  }
+
+  .img-backdrop {
+    display: none;
+    /* Mobile pe clean look ke liye */
+  }
+
+  .msg-name {
+    font-size: 1.6rem;
   }
 }

@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Events from "./components/Events";
 import ConfirmModal from "./components/ConfirmModal";
 import ImageSlider from "./components/ImageSlider";
+import Messages from "./components/Messages";
 import "./App.css";
 
 function App() {
@@ -105,7 +106,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <div
+                  {/* <div
                     className="hero card"
                     style={{ textAlign: "center", marginTop: "10px" }}
                   >
@@ -117,8 +118,9 @@ function App() {
                         Active
                       </h3>
                     )}
-                  </div>
+                  </div> */}
                   <Events />
+                  <Messages />
                 </>
               }
             />
