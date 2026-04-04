@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Attendance = ({ students }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [attendanceRecords, setAttendanceRecords] = useState({});
-  const [searchTerm, setSearchTerm] = useState(""); // Naya Search State
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // --- 1. LOCAL STORAGE SE DATA LOAD KARNA ---
+  const [attendanceRecords, setAttendanceRecords] = useState(() => {
+    const saved = localStorage.getItem("mbdrs_attendance");
+    return saved ? JSON.parse(saved) : {};
+  });
 
   const todayDate = new Date();
   const todayKey = `${todayDate.getFullYear()}-${String(todayDate.getMonth() + 1).padStart(2, "0")}-${String(todayDate.getDate()).padStart(2, "0")}`;
@@ -41,6 +46,11 @@ const Attendance = ({ students }) => {
     "December",
   ];
 
+  // --- 2. JAB BHI DATA BADLE, USE SAVE KARNA ---
+  useEffect(() => {
+    localStorage.setItem("mbdrs_attendance", JSON.stringify(attendanceRecords));
+  }, [attendanceRecords]);
+
   const getDaysInMonth = (month, year) =>
     new Date(year, month + 1, 0).getDate();
   const daysCount = getDaysInMonth(selectedMonth, selectedYear);
@@ -60,7 +70,6 @@ const Attendance = ({ students }) => {
     });
   };
 
-  // --- Search & Class Filter Logic ---
   const displayStudents = students
     .filter((s) => s.class === selectedClass)
     .filter(
@@ -84,7 +93,8 @@ const Attendance = ({ students }) => {
         <i className="fa-solid fa-calendar-check"></i> Attendance Register
       </h2>
 
-      {selectedClass && (
+      {/* Stats Dashboard */}
+      {selectedClass && displayStudents.length > 0 && (
         <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
           <div
             style={{
@@ -134,6 +144,7 @@ const Attendance = ({ students }) => {
         </div>
       )}
 
+      {/* Selectors & Search */}
       <div
         style={{
           display: "flex",
@@ -179,7 +190,6 @@ const Attendance = ({ students }) => {
           style={{ ...selectStyle, width: "80px" }}
         />
 
-        {/* NAYA SEARCH BAR */}
         {selectedClass && (
           <input
             type="text"
@@ -369,7 +379,7 @@ const Attendance = ({ students }) => {
           <i
             className="fa-solid fa-arrow-pointer"
             style={{ fontSize: "2rem", marginBottom: "10px", display: "block" }}
-          ></i>{" "}
+          ></i>
           Please select a class.
         </div>
       )}

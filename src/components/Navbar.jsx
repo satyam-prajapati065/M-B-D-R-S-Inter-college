@@ -1,10 +1,11 @@
-import React, { useState } from "react"; // 1. useState add kiya
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router";
 import logoImg from "../assets/school.png";
 
-const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
+// isLoggedIn ke sath userRole prop bhi liya
+const Navbar = ({ isLoggedIn, userRole, setIsLoggedIn }) => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // 2. Mobile menu state
+  const [isOpen, setIsOpen] = useState(false);
 
   const adminItems = [
     { path: "/admission", label: "Admission", icon: "fa-solid fa-user-plus" },
@@ -18,12 +19,11 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   ];
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setIsOpen(false); // Menu band karo logout par
+    setIsLoggedIn(); // App.js wala logout handler
+    setIsOpen(false);
     navigate("/");
   };
 
-  // Menu band karne ke liye helper function
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -49,12 +49,10 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
         </NavLink>
       </div>
 
-      {/* --- 3. HAMBURGER ICON (Mobile Only) --- */}
       <button className="mobile-menu-icon" onClick={() => setIsOpen(!isOpen)}>
         <i className={isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars"}></i>
       </button>
 
-      {/* --- 4. NAV LINKS (Dynamic Class based on isOpen) --- */}
       <ul className={isOpen ? "nav-links nav-active" : "nav-links"}>
         <li>
           <NavLink
@@ -68,20 +66,33 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
         {isLoggedIn ? (
           <>
-            {adminItems.map((item) => (
-              <li key={item.path}>
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                  onClick={closeMenu}
-                >
-                  <i className={item.icon} style={{ marginRight: "8px" }}></i>
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
+            {/* --- ROLE FILTER LOGIC --- */}
+            {adminItems.map((item) => {
+              // Agar role 'teacher' hai aur item 'Attendance' nahi hai, toh return null (mat dikhao)
+              if (userRole === "teacher" && item.label !== "Attendance") {
+                return null;
+              }
+
+              return (
+                <li key={item.path}>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    onClick={closeMenu}
+                  >
+                    <i className={item.icon} style={{ marginRight: "8px" }}></i>
+                    {item.label}
+                  </NavLink>
+                </li>
+              );
+            })}
+
             <li>
-              <button onClick={handleLogout} className="logout-btn">
+              <button
+                onClick={handleLogout}
+                className="logout-btn"
+                style={{ cursor: "pointer" }}
+              >
                 <i className="fa-solid fa-right-from-bracket"></i> Logout
               </button>
             </li>

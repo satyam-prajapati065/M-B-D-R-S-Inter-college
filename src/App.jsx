@@ -8,7 +8,7 @@ import ClassView from "./components/ClassView";
 import TopBar from "./components/TopBar";
 import Footer from "./components/Footer";
 import Events from "./components/Events";
-import ConfirmModal from "./components/ConfirmModal"; // Tera Naya Component
+import ConfirmModal from "./components/ConfirmModal";
 import "./App.css";
 
 function App() {
@@ -22,49 +22,72 @@ function App() {
     return localStorage.getItem("mbdrs_auth") === "true";
   });
 
+  // Naya Role State (Admin ya Teacher)
+  const [userRole, setUserRole] = useState(() => {
+    return localStorage.getItem("mbdrs_role") || null;
+  });
+
   const [adminPass, setAdminPass] = useState(() => {
     const saved = localStorage.getItem("mbdrs_pass");
     return saved ? saved : "mbdrs123";
   });
 
+  // Teacher password (Fixed rakh sakte ho ya adminPass ki tarah save kar sakte ho)
+  const [teacherPass] = useState("teacher123");
   const [secretKey] = useState("12345");
 
-  // --- ConfirmModal State ---
   const [modal, setModal] = useState({
     isOpen: false,
     message: "",
-    type: "success", // 'success' or 'confirm'
+    type: "success",
     onConfirm: null,
   });
 
   useEffect(() => {
     localStorage.setItem("mbdrs_students", JSON.stringify(students));
     localStorage.setItem("mbdrs_auth", isLoggedIn);
+    localStorage.setItem("mbdrs_role", userRole || "");
     localStorage.setItem("mbdrs_pass", adminPass);
-  }, [students, isLoggedIn, adminPass]);
+  }, [students, isLoggedIn, userRole, adminPass]);
 
-  // --- Modal Control Functions ---
   const showAlert = (type, message, onConfirmAction = null) => {
     setModal({
       isOpen: true,
       type: type,
       message: message,
       onConfirm: () => {
-        if (onConfirmAction) onConfirmAction(); // Action execute karo
-        setModal((prev) => ({ ...prev, isOpen: false })); // Modal band karo
+        if (onConfirmAction) onConfirmAction();
+        setModal((prev) => ({ ...prev, isOpen: false }));
       },
     });
   };
 
   const closeModal = () => setModal((prev) => ({ ...prev, isOpen: false }));
 
+  // --- Login Handler ---
+  const handleLogin = (role) => {
+    setIsLoggedIn(true);
+    setUserRole(role);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUserRole(null);
+    localStorage.removeItem("mbdrs_auth");
+    localStorage.removeItem("mbdrs_role");
+  };
+
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <TopBar />
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        {/* Navbar ko Role pass kiya taaki wo buttons chhupa sake */}
+        <Navbar
+          isLoggedIn={isLoggedIn}
+          userRole={userRole}
+          setIsLoggedIn={handleLogout}
+        />
 
-        {/* --- TERA CUSTOM COMPONENT INTEGRATION --- */}
         <ConfirmModal
           isOpen={modal.isOpen}
           type={modal.type}
@@ -75,7 +98,6 @@ function App() {
 
         <main className="container">
           <Routes>
-            {/* Home Route */}
             <Route
               path="/"
               element={
@@ -86,14 +108,18 @@ function App() {
                   >
                     <h1>Welcome to MBDRS Inter College</h1>
                     <div style={{ fontSize: "5rem", margin: "20px" }}>🏫</div>
-                    {isLoggedIn && <h3>Admin Dashboard Active</h3>}
+                    {isLoggedIn && (
+                      <h3>
+                        {userRole === "admin" ? "Admin" : "Teacher"} Dashboard
+                        Active
+                      </h3>
+                    )}
                   </div>
                   <Events />
                 </>
               }
             />
 
-            {/* Login Route */}
             <Route
               path="/login"
               element={
@@ -101,9 +127,10 @@ function App() {
                   <Navigate to="/" />
                 ) : (
                   <LoginScreen
-                    onLogin={() => setIsLoggedIn(true)}
+                    onLogin={handleLogin}
                     showAlert={showAlert}
                     correctPass={adminPass}
+                    teacherPass={teacherPass}
                     secretKey={secretKey}
                     setAdminPass={setAdminPass}
                   />
@@ -111,11 +138,13 @@ function App() {
               }
             />
 
-            {/* Admission Route */}
+            {/* --- Protected Routes (Role Based) --- */}
+
+            {/* Admission: Only Admin */}
             <Route
               path="/admission"
               element={
-                isLoggedIn ? (
+                isLoggedIn && userRole === "admin" ? (
                   <Admission
                     students={students}
                     addStudent={(s) => {
@@ -127,28 +156,28 @@ function App() {
                     }}
                   />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to={isLoggedIn ? "/" : "/login"} />
                 )
               }
             />
 
-            {/* Records Route */}
+            {/* Records: Only Admin */}
             <Route
               path="/records"
               element={
-                isLoggedIn ? (
+                isLoggedIn && userRole === "admin" ? (
                   <ClassView
                     students={students}
                     setStudents={setStudents}
-                    showAlert={showAlert} // Pass showAlert as a prop for Delete functionality
+                    showAlert={showAlert}
                   />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to={isLoggedIn ? "/" : "/login"} />
                 )
               }
             />
 
-            {/* Attendance & Fees Routes */}
+            {/* Attendance: Admin and Teacher Dono ke liye */}
             <Route
               path="/attendance"
               element={
@@ -159,13 +188,15 @@ function App() {
                 )
               }
             />
+
+            {/* Fees: Only Admin */}
             <Route
               path="/fees"
               element={
-                isLoggedIn ? (
+                isLoggedIn && userRole === "admin" ? (
                   <Fees students={students} />
                 ) : (
-                  <Navigate to="/login" />
+                  <Navigate to={isLoggedIn ? "/" : "/login"} />
                 )
               }
             />
@@ -177,11 +208,12 @@ function App() {
   );
 }
 
-// --- Login & Reset Screen Component ---
+// --- Login Screen Update ---
 const LoginScreen = ({
   onLogin,
   showAlert,
   correctPass,
+  teacherPass,
   secretKey,
   setAdminPass,
 }) => {
@@ -196,8 +228,13 @@ const LoginScreen = ({
 
   const handleLogin = (e) => {
     e.preventDefault();
+    // Admin Check
     if (loginData.user === "admin" && loginData.pass === correctPass) {
-      onLogin();
+      onLogin("admin");
+    }
+    // Teacher Check
+    else if (loginData.user === "teacher" && loginData.pass === teacherPass) {
+      onLogin("teacher");
     } else {
       showAlert("error", "Invalid Username or Password!");
     }
@@ -211,14 +248,13 @@ const LoginScreen = ({
         "New Password aur Confirm Password match nahi kar rahe!",
       );
     }
-
     if (resetData.oldPass === correctPass || resetData.key === secretKey) {
       setAdminPass(resetData.newPass);
-      showAlert("success", "Password सफलतापूर्वक बदल दिया गया!", () =>
+      showAlert("success", "Password Successfully Badal Gaya!", () =>
         setView("login"),
       );
     } else {
-      showAlert("error", "Old Password या Secret Key गलत है!");
+      showAlert("error", "Old Password ya Secret Key galat hai!");
     }
   };
 
@@ -227,7 +263,7 @@ const LoginScreen = ({
       {view === "login" ? (
         <div className="card login-card">
           <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-            Admin Login
+            Staff Login
           </h2>
           <form
             onSubmit={handleLogin}
@@ -235,7 +271,7 @@ const LoginScreen = ({
           >
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Username (admin/teacher)"
               className="input-field"
               required
               onChange={(e) =>
@@ -304,10 +340,10 @@ const LoginScreen = ({
               }
             />
             <hr />
-            <p>Or</p>
+            <p>Or use Secret Key</p>
             <input
               type="text"
-              placeholder="Secret Key (12345)"
+              placeholder="Secret Key"
               className="input-field"
               onChange={(e) =>
                 setResetData({ ...resetData, key: e.target.value })
