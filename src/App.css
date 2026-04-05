@@ -24,6 +24,28 @@ body {
   /* padding: 20px; */
 }
 
+/* --- Scrollbar  --- */
+::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #001f4d;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffb320;
+}
+
 /* --- Navbar Styling --- */
 .navbar {
   background-color: #ffffff;
