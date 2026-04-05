@@ -79,6 +79,35 @@ function App() {
     localStorage.removeItem("mbdrs_role");
   };
 
+  //Loader--------------------
+  const [loading, setLoading] = useState(true); // Loader state
+
+  useEffect(() => {
+    // Jab poori window (images, scripts, etc.) load ho jaye
+    const handleLoad = () => {
+      // Thoda delay (500ms) de sakte ho taaki transition smooth lage
+      setTimeout(() => setLoading(false), 500);
+    };
+
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="loader-wrapper">
+        <div className="loader"></div>
+        <h2 style={{ color: "#001f4d", marginTop: "20px" }}>
+          M B D R S Portal Loading...
+        </h2>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
       <div className="app-wrapper">
